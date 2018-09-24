@@ -278,9 +278,7 @@ np.random.randint(0,100,(10,10))：在[0,100)范围内随机取值得到10阶方
 
 ### EXERCISE 2.1
 
-画出一个二次函数，同时画出梯形法求积分时的各个梯形 例如：
-
-![matplot_ex1.png](attachment:matplot_ex1.png)
+画出一个二次函数，同时画出梯形法求积分时的各个梯形 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ python
 import matplotlib.pyplot as plt
@@ -304,7 +302,7 @@ axes.spines["bottom"].set_position(('data',0))
 plt.show()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-![](C:/Users/Administrator/Desktop/下载1.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2018/0924/110805_79d0aa89_2191218.png "下载1.png")
 
 思路：  
 先画出函数曲线，然后循环得到每个点到x-axis的垂直线。  
@@ -344,7 +342,7 @@ ax.set_ylabel('y')
 plt.show()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-![](C:/Users/Administrator/Desktop/下载2.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2018/0924/110819_73f468f9_2191218.png "下载2.png")
 
 思路：  
 就是函数的应用。要牢记。  
@@ -353,11 +351,9 @@ plt.show()
 np.exp(x)：numpy库中的指数函数，能输入矩阵。  
 '￥y = sin2(x-2)e{-x\^2}￥'：latex语言文本处理。
 
-### EXERCISE 2.2
+### EXERCISE 2.3
 
-模拟一个醉汉在二维空间上的随机漫步。 例如1维的情况是：
-
-![random_walk.png](attachment:random_walk.png)
+模拟一个醉汉在二维空间上的随机漫步。 
 
 x轴表示步子，y轴表示游走的位置
 
@@ -407,8 +403,7 @@ fig.savefig('exercise_2-3.pdf')
 
 plt.show()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-![](C:/Users/Administrator/Desktop/下载3.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2018/0924/110844_85e9a4c2_2191218.png "下载3.png")
 
 原理：  
 见注释。  
