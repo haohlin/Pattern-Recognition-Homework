@@ -68,16 +68,7 @@ class kmeans():
         center1_new = np.sum(self.orig_data[self.group1_index[:,0]], axis = 0) / len(self.orig_data[self.group1_index[:,0]])
         center2_new = np.sum(self.orig_data[self.group2_index[:,0]], axis = 0) / len(self.orig_data[self.group2_index[:,0]])
         return center1_new, center2_new
-        
-    def score(self, label_true):
-        '''评分。这里要注意的是k-means是只能把类区别开，但不能打上正确的标签。'''
-        
-        score = 0
-        for i in range(len(label_true)):
-            if label_true[i] == self.label[i]:
-                score += 1
-        score /= len(label_true)
-        return score
+
     
     
 data_trans = np.hstack((ang.reshape(-1,1), dist_tran.reshape(-1,1)))  #将坐标转换后的数据整理成n行2列的形式，方便读取
@@ -98,8 +89,7 @@ for i in range(10):   #循环计算性能指标函数，改变重心，并判断
     else: 
         center1, center2 = km.move_center()    #不达标，则移动中心重新计算
         
-label_untrans = km.label
-print('score = ',km.score(true_label))    
+label_untrans = km.label   
 print('predicted center = ', center1, center2)
 print('predicted label = ',label_untrans)
 
@@ -121,8 +111,7 @@ for i in range(10):
     else: 
         center1, center2 = km.move_center()
         
-label_trans = km.label
-print('score = ',km.score(true_label))    
+label_trans = km.label  
 print('predicted center = ', center1, center2)
 print('predicted label = ',label_trans)
 
