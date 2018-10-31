@@ -378,120 +378,109 @@ C = Cherbourg, Q = Queenstown, S = Southampton\strut
     \paragraph{Libraries:}\label{libraries}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}201}]:} \PY{c+c1}{\PYZsh{}machine learning}
-          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{tree}
-          \PY{k+kn}{import} \PY{n+nn}{pydotplus}
-          
-          \PY{c+c1}{\PYZsh{}data analysis}
-          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-          \PY{k+kn}{import} \PY{n+nn}{string}
-          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-          \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{mode}
-          
-          \PY{c+c1}{\PYZsh{}visualization}
-          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
-          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{export\PYZus{}graphviz}
-          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
-          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}machine learning}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{tree}
+         \PY{k+kn}{import} \PY{n+nn}{pydotplus}
+         \PY{k+kn}{import} \PY{n+nn}{torch}
+         
+         \PY{c+c1}{\PYZsh{}data analysis}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{string}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{mode}
+         
+         \PY{c+c1}{\PYZsh{}visualization}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{export\PYZus{}graphviz}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
 \end{Verbatim}
 
 
     \subsection{Acquire data}\label{acquire-data}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}207}]:} \PY{n}{trainPath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/train.csv}\PY{l+s+s1}{\PYZsq{}}
-          \PY{n}{testPath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/test.csv}\PY{l+s+s1}{\PYZsq{}}
-          \PY{n}{trainData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{trainPath}\PY{p}{)}
-          \PY{n}{testData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{testPath}\PY{p}{)}
-          \PY{n}{trainData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{trainPath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/train.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{testPath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/test.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{trainData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{trainPath}\PY{p}{)}
+         \PY{n}{testData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{testPath}\PY{p}{)}
+         \PY{n}{trainData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}207}]:}    PassengerId  Survived  Pclass  \textbackslash{}
-          0            1         0       3   
-          1            2         1       1   
-          2            3         1       3   
-          3            4         1       1   
-          4            5         0       3   
-          5            6         0       3   
-          6            7         0       1   
-          7            8         0       3   
-          8            9         1       3   
-          9           10         1       2   
-          
-                                                          Name     Sex   Age  SibSp  \textbackslash{}
-          0                            Braund, Mr. Owen Harris    male  22.0      1   
-          1  Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  female  38.0      1   
-          2                             Heikkinen, Miss. Laina  female  26.0      0   
-          3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
-          4                           Allen, Mr. William Henry    male  35.0      0   
-          5                                   Moran, Mr. James    male   NaN      0   
-          6                            McCarthy, Mr. Timothy J    male  54.0      0   
-          7                     Palsson, Master. Gosta Leonard    male   2.0      3   
-          8  Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)  female  27.0      0   
-          9                Nasser, Mrs. Nicholas (Adele Achem)  female  14.0      1   
-          
-             Parch            Ticket     Fare Cabin Embarked  
-          0      0         A/5 21171   7.2500   NaN        S  
-          1      0          PC 17599  71.2833   C85        C  
-          2      0  STON/O2. 3101282   7.9250   NaN        S  
-          3      0            113803  53.1000  C123        S  
-          4      0            373450   8.0500   NaN        S  
-          5      0            330877   8.4583   NaN        Q  
-          6      0             17463  51.8625   E46        S  
-          7      1            349909  21.0750   NaN        S  
-          8      2            347742  11.1333   NaN        S  
-          9      0            237736  30.0708   NaN        C  
+{\color{outcolor}Out[{\color{outcolor}27}]:}    PassengerId  Survived  Pclass  \textbackslash{}
+         0            1         0       3   
+         1            2         1       1   
+         2            3         1       3   
+         3            4         1       1   
+         4            5         0       3   
+         5            6         0       3   
+         
+                                                         Name     Sex   Age  SibSp  \textbackslash{}
+         0                            Braund, Mr. Owen Harris    male  22.0      1   
+         1  Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  female  38.0      1   
+         2                             Heikkinen, Miss. Laina  female  26.0      0   
+         3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
+         4                           Allen, Mr. William Henry    male  35.0      0   
+         5                                   Moran, Mr. James    male   NaN      0   
+         
+            Parch            Ticket     Fare Cabin Embarked  
+         0      0         A/5 21171   7.2500   NaN        S  
+         1      0          PC 17599  71.2833   C85        C  
+         2      0  STON/O2. 3101282   7.9250   NaN        S  
+         3      0            113803  53.1000  C123        S  
+         4      0            373450   8.0500   NaN        S  
+         5      0            330877   8.4583   NaN        Q  
 \end{Verbatim}
             
     \subsection{Data analysis and feature
 engineering}\label{data-analysis-and-feature-engineering}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}203}]:} \PY{n}{trainData}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{include} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{trainData}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{include} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}203}]:}         PassengerId    Survived      Pclass  \textbackslash{}
-          count    891.000000  891.000000  891.000000   
-          unique          NaN         NaN         NaN   
-          top             NaN         NaN         NaN   
-          freq            NaN         NaN         NaN   
-          mean     446.000000    0.383838    2.308642   
-          std      257.353842    0.486592    0.836071   
-          min        1.000000    0.000000    1.000000   
-          25\%      223.500000    0.000000    2.000000   
-          50\%      446.000000    0.000000    3.000000   
-          75\%      668.500000    1.000000    3.000000   
-          max      891.000000    1.000000    3.000000   
-          
-                                                     Name   Sex         Age       SibSp  \textbackslash{}
-          count                                       891   891  714.000000  891.000000   
-          unique                                      891     2         NaN         NaN   
-          top     Andersson, Master. Sigvard Harald Elias  male         NaN         NaN   
-          freq                                          1   577         NaN         NaN   
-          mean                                        NaN   NaN   29.699118    0.523008   
-          std                                         NaN   NaN   14.526497    1.102743   
-          min                                         NaN   NaN    0.420000    0.000000   
-          25\%                                         NaN   NaN   20.125000    0.000000   
-          50\%                                         NaN   NaN   28.000000    0.000000   
-          75\%                                         NaN   NaN   38.000000    1.000000   
-          max                                         NaN   NaN   80.000000    8.000000   
-          
-                       Parch  Ticket        Fare    Cabin Embarked  
-          count   891.000000     891  891.000000      204      889  
-          unique         NaN     681         NaN      147        3  
-          top            NaN  347082         NaN  B96 B98        S  
-          freq           NaN       7         NaN        4      644  
-          mean      0.381594     NaN   32.204208      NaN      NaN  
-          std       0.806057     NaN   49.693429      NaN      NaN  
-          min       0.000000     NaN    0.000000      NaN      NaN  
-          25\%       0.000000     NaN    7.910400      NaN      NaN  
-          50\%       0.000000     NaN   14.454200      NaN      NaN  
-          75\%       0.000000     NaN   31.000000      NaN      NaN  
-          max       6.000000     NaN  512.329200      NaN      NaN  
+{\color{outcolor}Out[{\color{outcolor}3}]:}         PassengerId    Survived      Pclass                Name   Sex  \textbackslash{}
+        count    891.000000  891.000000  891.000000                 891   891   
+        unique          NaN         NaN         NaN                 891     2   
+        top             NaN         NaN         NaN  Hickman, Mr. Lewis  male   
+        freq            NaN         NaN         NaN                   1   577   
+        mean     446.000000    0.383838    2.308642                 NaN   NaN   
+        std      257.353842    0.486592    0.836071                 NaN   NaN   
+        min        1.000000    0.000000    1.000000                 NaN   NaN   
+        25\%      223.500000    0.000000    2.000000                 NaN   NaN   
+        50\%      446.000000    0.000000    3.000000                 NaN   NaN   
+        75\%      668.500000    1.000000    3.000000                 NaN   NaN   
+        max      891.000000    1.000000    3.000000                 NaN   NaN   
+        
+                       Age       SibSp       Parch    Ticket        Fare        Cabin  \textbackslash{}
+        count   714.000000  891.000000  891.000000       891  891.000000          204   
+        unique         NaN         NaN         NaN       681         NaN          147   
+        top            NaN         NaN         NaN  CA. 2343         NaN  C23 C25 C27   
+        freq           NaN         NaN         NaN         7         NaN            4   
+        mean     29.699118    0.523008    0.381594       NaN   32.204208          NaN   
+        std      14.526497    1.102743    0.806057       NaN   49.693429          NaN   
+        min       0.420000    0.000000    0.000000       NaN    0.000000          NaN   
+        25\%      20.125000    0.000000    0.000000       NaN    7.910400          NaN   
+        50\%      28.000000    0.000000    0.000000       NaN   14.454200          NaN   
+        75\%      38.000000    1.000000    0.000000       NaN   31.000000          NaN   
+        max      80.000000    8.000000    6.000000       NaN  512.329200          NaN   
+        
+               Embarked  
+        count       889  
+        unique        3  
+        top           S  
+        freq        644  
+        mean        NaN  
+        std         NaN  
+        min         NaN  
+        25\%         NaN  
+        50\%         NaN  
+        75\%         NaN  
+        max         NaN  
 \end{Verbatim}
             
     \subsubsection{Assumptions:}\label{assumptions}
@@ -514,163 +503,163 @@ engineering}\label{data-analysis-and-feature-engineering}
 generating}\label{data-cleaning-and-feature-generating}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}204}]:} \PY{k}{class} \PY{n+nc}{dataclean}\PY{p}{(}\PY{p}{)}\PY{p}{:}
-              
-              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{df}\PY{p}{)}\PY{p}{:}
-                  
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df} \PY{o}{=} \PY{n}{df}
-                  
-              \PY{k}{def} \PY{n+nf}{extract\PYZus{}feature}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data\PYZus{}string}\PY{p}{,} \PY{n}{feature}\PY{p}{)}\PY{p}{:}
-                  
-                  \PY{k}{for} \PY{n}{subfeature} \PY{o+ow}{in} \PY{n}{feature}\PY{p}{:}
-                       \PY{k}{if} \PY{n}{data\PYZus{}string}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{subfeature}\PY{p}{)} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
-                          \PY{k}{return} \PY{n}{subfeature}
-              
-              \PY{k}{def} \PY{n+nf}{clean}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
-                  
-                  \PY{c+c1}{\PYZsh{}Extract titles from names}
-                  \PY{n}{name\PYZus{}feature} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mrs.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mr.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Master}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
-                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ms}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mlle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Capt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mme}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Countess}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
-                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Don}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jonkheer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-                  
-                  \PY{c+c1}{\PYZsh{}Narrow all titles into four common titles}
-                  \PY{k}{def} \PY{n+nf}{replace\PYZus{}titles}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
-                      \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Don}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Capt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jonkheer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mr.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
-                          \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mr.}\PY{l+s+s1}{\PYZsq{}}
-                      \PY{k}{elif} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Countess}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mme}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mrs.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
-                          \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mrs.}\PY{l+s+s1}{\PYZsq{}}
-                      \PY{k}{elif} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mlle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ms}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
-                          \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miss}\PY{l+s+s1}{\PYZsq{}}
-                      \PY{k}{elif} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Master}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
-                          \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Master}\PY{l+s+s1}{\PYZsq{}}
-                      \PY{k}{else}\PY{p}{:}
-                          \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
-                          
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Name}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{extract\PYZus{}feature}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{name\PYZus{}feature}\PY{p}{)}\PY{p}{)}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{replace\PYZus{}titles}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
-                  
-                  \PY{c+c1}{\PYZsh{}Fill the two missing Embarked data with the mode of distribution}
-                  \PY{n}{emmod} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Embarked}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Embarked} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Embarked}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{emmod}\PY{p}{)}
-                  
-                  \PY{c+c1}{\PYZsh{}Fill the two missing Title data with the mode of distribution}
-                  \PY{n}{titlemod} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Title}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Title} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Title}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{titlemod}\PY{p}{)}
-                  
-                  \PY{c+c1}{\PYZsh{}Family size = siblings / spouses + parents / children}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family\PYZus{}member}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{SibSp} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Parch}
-                  
-                  \PY{c+c1}{\PYZsh{}Fill the missing Fare data with the median of distribution.}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Fare} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fair\PYZus{}per\PYZus{}person}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{/}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Family\PYZus{}member} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{class} \PY{n+nc}{dataclean}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{df}\PY{p}{)}\PY{p}{:}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df} \PY{o}{=} \PY{n}{df}
+                
+            \PY{k}{def} \PY{n+nf}{extract\PYZus{}feature}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data\PYZus{}string}\PY{p}{,} \PY{n}{feature}\PY{p}{)}\PY{p}{:}
+                
+                \PY{k}{for} \PY{n}{subfeature} \PY{o+ow}{in} \PY{n}{feature}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{data\PYZus{}string}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{n}{subfeature}\PY{p}{)} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                        \PY{k}{return} \PY{n}{subfeature}
+            
+            \PY{k}{def} \PY{n+nf}{clean}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                
+                \PY{c+c1}{\PYZsh{}Extract titles from names}
+                \PY{n}{name\PYZus{}feature} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mrs.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mr.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Master}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ms}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mlle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Capt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mme}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Countess}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Don}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jonkheer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+                \PY{c+c1}{\PYZsh{}Narrow all titles into four common titles}
+                \PY{k}{def} \PY{n+nf}{replace\PYZus{}titles}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Don}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Capt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jonkheer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mr.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                        \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mr.}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{k}{elif} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Countess}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mme}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mrs.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                        \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mrs.}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{k}{elif} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mlle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ms}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                        \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miss}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{k}{elif} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Master}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                        \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Master}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+                        
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Name}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{extract\PYZus{}feature}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{name\PYZus{}feature}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{replace\PYZus{}titles}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{}Fill the two missing Embarked data with the mode of distribution}
+                \PY{n}{emmod} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Embarked}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Embarked} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Embarked}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{emmod}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{}Fill the two missing Title data with the mode of distribution}
+                \PY{n}{titlemod} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Title}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Title} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Title}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{titlemod}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{}Family size = siblings / spouses + parents / children}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family\PYZus{}member}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{SibSp} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Parch}
+                
+                \PY{c+c1}{\PYZsh{}Fill the missing Fare data with the median of distribution.}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Fare} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fair\PYZus{}per\PYZus{}person}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{/}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{df}\PY{o}{.}\PY{n}{Family\PYZus{}member} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}208}]:} \PY{n}{dataclean\PYZus{}train} \PY{o}{=} \PY{n}{dataclean}\PY{p}{(}\PY{n}{trainData}\PY{p}{)}
-          \PY{n}{dataclean\PYZus{}train}\PY{o}{.}\PY{n}{clean}\PY{p}{(}\PY{p}{)}
-          \PY{c+c1}{\PYZsh{}Delete used/irrelevant data}
-          \PY{n}{trainData} \PY{o}{=} \PY{n}{trainData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ticket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PassengerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{c+c1}{\PYZsh{}Move survival label to the last column}
-          \PY{n}{b} \PY{o}{=} \PY{n}{trainData}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{trainData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{b}
-          
-          \PY{n}{dataclean\PYZus{}test} \PY{o}{=} \PY{n}{dataclean}\PY{p}{(}\PY{n}{testData}\PY{p}{)}
-          \PY{n}{dataclean\PYZus{}test}\PY{o}{.}\PY{n}{clean}\PY{p}{(}\PY{p}{)}
-          \PY{n}{testData} \PY{o}{=} \PY{n}{testData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ticket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PassengerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{n}{trainData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{dataclean\PYZus{}train} \PY{o}{=} \PY{n}{dataclean}\PY{p}{(}\PY{n}{trainData}\PY{p}{)}
+        \PY{n}{dataclean\PYZus{}train}\PY{o}{.}\PY{n}{clean}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}Delete used/irrelevant data}
+        \PY{n}{trainData} \PY{o}{=} \PY{n}{trainData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ticket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PassengerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}Move survival label to the last column}
+        \PY{n}{b} \PY{o}{=} \PY{n}{trainData}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{trainData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{b}
+        
+        \PY{n}{dataclean\PYZus{}test} \PY{o}{=} \PY{n}{dataclean}\PY{p}{(}\PY{n}{testData}\PY{p}{)}
+        \PY{n}{dataclean\PYZus{}test}\PY{o}{.}\PY{n}{clean}\PY{p}{(}\PY{p}{)}
+        \PY{n}{testData} \PY{o}{=} \PY{n}{testData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ticket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PassengerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{trainData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}208}]:}    Pclass     Sex   Age  SibSp Embarked   Title  Family\_member  \textbackslash{}
-          0       3    male  22.0      1        S     Mr.              1   
-          1       1  female  38.0      1        C    Mrs.              1   
-          2       3  female  26.0      0        S    Miss              0   
-          3       1  female  35.0      1        S    Mrs.              1   
-          4       3    male  35.0      0        S     Mr.              0   
-          5       3    male   NaN      0        Q     Mr.              0   
-          6       1    male  54.0      0        S     Mr.              0   
-          7       3    male   2.0      3        S  Master              4   
-          8       3  female  27.0      0        S    Mrs.              2   
-          9       2  female  14.0      1        C    Mrs.              1   
-          
-             Fair\_per\_person  Survived  
-          0          3.62500         0  
-          1         35.64165         1  
-          2          7.92500         1  
-          3         26.55000         1  
-          4          8.05000         0  
-          5          8.45830         0  
-          6         51.86250         0  
-          7          4.21500         0  
-          8          3.71110         1  
-          9         15.03540         1  
+{\color{outcolor}Out[{\color{outcolor}5}]:}    Pclass     Sex   Age  SibSp Embarked   Title  Family\_member  \textbackslash{}
+        0       3    male  22.0      1        S     Mr.              1   
+        1       1  female  38.0      1        C    Mrs.              1   
+        2       3  female  26.0      0        S    Miss              0   
+        3       1  female  35.0      1        S    Mrs.              1   
+        4       3    male  35.0      0        S     Mr.              0   
+        5       3    male   NaN      0        Q     Mr.              0   
+        6       1    male  54.0      0        S     Mr.              0   
+        7       3    male   2.0      3        S  Master              4   
+        8       3  female  27.0      0        S    Mrs.              2   
+        9       2  female  14.0      1        C    Mrs.              1   
+        
+           Fair\_per\_person  Survived  
+        0          3.62500         0  
+        1         35.64165         1  
+        2          7.92500         1  
+        3         26.55000         1  
+        4          8.05000         0  
+        5          8.45830         0  
+        6         51.86250         0  
+        7          4.21500         0  
+        8          3.71110         1  
+        9         15.03540         1  
 \end{Verbatim}
             
     \subsubsection{Correlating}\label{correlating}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}209}]:} \PY{c+c1}{\PYZsh{}Pclass vs Survived}
-          \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Pclass vs Survived}
+        \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}209}]:}    Pclass  Survived
-          0       1  0.629630
-          1       2  0.472826
-          2       3  0.242363
+{\color{outcolor}Out[{\color{outcolor}6}]:}    Pclass  Survived
+        0       1  0.629630
+        1       2  0.472826
+        2       3  0.242363
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}210}]:} \PY{c+c1}{\PYZsh{}Sex vs Survived}
-          \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}Sex vs Survived}
+        \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}210}]:}       Sex  Survived
-          0  female  0.742038
-          1    male  0.188908
+{\color{outcolor}Out[{\color{outcolor}7}]:}       Sex  Survived
+        0  female  0.742038
+        1    male  0.188908
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}211}]:} \PY{c+c1}{\PYZsh{}Title vs Survived}
-          \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}Title vs Survived}
+        \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}211}]:}     Title  Survived
-          0  Master  0.575000
-          1    Miss  0.702703
-          2     Mr.  0.163265
-          3    Mrs.  0.795276
+{\color{outcolor}Out[{\color{outcolor}8}]:}     Title  Survived
+        0  Master  0.575000
+        1    Miss  0.702703
+        2     Mr.  0.163265
+        3    Mrs.  0.795276
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}212}]:} \PY{c+c1}{\PYZsh{}Embarked vs Survived}
-          \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Embarked vs Survived}
+        \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}212}]:}   Embarked  Survived
-          0        C  0.553571
-          1        Q  0.389610
-          2        S  0.339009
+{\color{outcolor}Out[{\color{outcolor}9}]:}   Embarked  Survived
+        0        C  0.553571
+        1        Q  0.389610
+        2        S  0.339009
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}213}]:} \PY{c+c1}{\PYZsh{}Family\PYZus{}member vs Survived}
-          \PY{n}{family2survive} \PY{o}{=} \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family\PYZus{}member}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family\PYZus{}member}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
-          \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Family\PYZus{}member}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{family2survive}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}Family\PYZus{}member vs Survived}
+         \PY{n}{family2survive} \PY{o}{=} \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family\PYZus{}member}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family\PYZus{}member}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Family\PYZus{}member}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Survived}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{family2survive}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}213}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bfaa3084a8>
+{\color{outcolor}Out[{\color{outcolor}10}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1689fd30e80>
 \end{Verbatim}
             
     \begin{center}
@@ -679,16 +668,16 @@ generating}\label{data-cleaning-and-feature-generating}
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}215}]:} \PY{c+c1}{\PYZsh{}Age vs Survived}
-          \PY{n}{age2survive} \PY{o}{=} \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{age2survive}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{age2survive}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}Age vs Survived}
+         \PY{n}{age2survive} \PY{o}{=} \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{age2survive}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{age2survive}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}215}]:} Text(0,0.5,'Survived')
+{\color{outcolor}Out[{\color{outcolor}11}]:} Text(0,0.5,'Survived')
 \end{Verbatim}
             
     \begin{center}
@@ -697,17 +686,17 @@ generating}\label{data-cleaning-and-feature-generating}
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}216}]:} \PY{c+c1}{\PYZsh{}Age vs SibSp}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
-          \PY{n}{age2sib} \PY{o}{=} \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{age2sib}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{age2sib}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}Age vs SibSp}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{age2sib} \PY{o}{=} \PY{n}{trainData}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{age2sib}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{age2sib}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}216}]:} Text(0,0.5,'age\_mean')
+{\color{outcolor}Out[{\color{outcolor}12}]:} Text(0,0.5,'age\_mean')
 \end{Verbatim}
             
     \begin{center}
@@ -729,20 +718,20 @@ generating}\label{data-cleaning-and-feature-generating}
     \subsubsection{Complete age}\label{complete-age}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}217}]:} \PY{k}{def} \PY{n+nf}{complete\PYZus{}age}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
-              \PY{n}{age2sib\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mf}{31.01485052}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mf}{30.04113425}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mf}{23.37847689}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mf}{17.86227941}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:}\PY{l+m+mf}{7.05555556}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mf}{10.2}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mf}{29.69911765}\PY{p}{\PYZcb{}}
-          
-              \PY{n}{guess\PYZus{}age} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-              \PY{k}{for} \PY{n}{dataset} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{values}\PY{p}{:}
-                  \PY{k}{if}  \PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{p}{:}
-                      \PY{n}{guess\PYZus{}age}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{age2sib\PYZus{}dict}\PY{p}{[}\PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
-              \PY{n}{df}\PY{o}{.}\PY{n}{Age}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Age}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{guess\PYZus{}age}
-              
-              
-          \PY{n}{complete\PYZus{}age}\PY{p}{(}\PY{n}{trainData}\PY{p}{)}
-          \PY{n}{complete\PYZus{}age}\PY{p}{(}\PY{n}{testData}\PY{p}{)}
-          \PY{n}{trainData} \PY{o}{=} \PY{n}{trainData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{n}{testData} \PY{o}{=} \PY{n}{testData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{complete\PYZus{}age}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{n}{age2sib\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mf}{31.01485052}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mf}{30.04113425}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mf}{23.37847689}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mf}{17.86227941}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:}\PY{l+m+mf}{7.05555556}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mf}{10.2}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mf}{29.69911765}\PY{p}{\PYZcb{}}
+         
+             \PY{n}{guess\PYZus{}age} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{dataset} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{values}\PY{p}{:}
+                 \PY{k}{if}  \PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{p}{:}
+                     \PY{n}{guess\PYZus{}age}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{age2sib\PYZus{}dict}\PY{p}{[}\PY{n}{dataset}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+             \PY{n}{df}\PY{o}{.}\PY{n}{Age}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Age}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{guess\PYZus{}age}
+             
+             
+         \PY{n}{complete\PYZus{}age}\PY{p}{(}\PY{n}{trainData}\PY{p}{)}
+         \PY{n}{complete\PYZus{}age}\PY{p}{(}\PY{n}{testData}\PY{p}{)}
+         \PY{n}{trainData} \PY{o}{=} \PY{n}{trainData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{testData} \PY{o}{=} \PY{n}{testData}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -759,77 +748,77 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 Numerical}\label{transfer-categorical-to-numerical}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}218}]:} \PY{k}{def} \PY{n+nf}{to\PYZus{}numerical}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
-              \PY{n}{title\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mr.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Miss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mrs.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Master}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{\PYZcb{}}
-              \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{title\PYZus{}dict}\PY{p}{)}
-              
-              \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{male}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
-              
-              \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}
-          
-          \PY{n}{to\PYZus{}numerical}\PY{p}{(}\PY{n}{trainData}\PY{p}{)}
-          \PY{n}{to\PYZus{}numerical}\PY{p}{(}\PY{n}{testData}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{to\PYZus{}numerical}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{n}{title\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mr.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Miss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mrs.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Master}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{\PYZcb{}}
+             \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{title\PYZus{}dict}\PY{p}{)}
+             
+             \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{male}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{\PYZcb{}}\PY{p}{)}
+             
+             \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{to\PYZus{}numerical}\PY{p}{(}\PY{n}{trainData}\PY{p}{)}
+         \PY{n}{to\PYZus{}numerical}\PY{p}{(}\PY{n}{testData}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{trainData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{trainData}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}219}]:}    Pclass  Sex        Age  Embarked  Title  Family\_member  Fair\_per\_person  \textbackslash{}
-          0       3    1  22.000000         1      1              1          3.62500   
-          1       1    2  38.000000         2      3              1         35.64165   
-          2       3    2  26.000000         1      2              0          7.92500   
-          3       1    2  35.000000         1      3              1         26.55000   
-          4       3    1  35.000000         1      1              0          8.05000   
-          5       3    1  31.014851         3      1              0          8.45830   
-          6       1    1  54.000000         1      1              0         51.86250   
-          7       3    1   2.000000         1      4              4          4.21500   
-          8       3    2  27.000000         1      3              2          3.71110   
-          9       2    2  14.000000         2      3              1         15.03540   
-          
-             Survived  
-          0         0  
-          1         1  
-          2         1  
-          3         1  
-          4         0  
-          5         0  
-          6         0  
-          7         0  
-          8         1  
-          9         1  
+{\color{outcolor}Out[{\color{outcolor}15}]:}    Pclass  Sex        Age  Embarked  Title  Family\_member  Fair\_per\_person  \textbackslash{}
+         0       3    1  22.000000         1      1              1          3.62500   
+         1       1    2  38.000000         2      3              1         35.64165   
+         2       3    2  26.000000         1      2              0          7.92500   
+         3       1    2  35.000000         1      3              1         26.55000   
+         4       3    1  35.000000         1      1              0          8.05000   
+         5       3    1  31.014851         3      1              0          8.45830   
+         6       1    1  54.000000         1      1              0         51.86250   
+         7       3    1   2.000000         1      4              4          4.21500   
+         8       3    2  27.000000         1      3              2          3.71110   
+         9       2    2  14.000000         2      3              1         15.03540   
+         
+            Survived  
+         0         0  
+         1         1  
+         2         1  
+         3         1  
+         4         0  
+         5         0  
+         6         0  
+         7         0  
+         8         1  
+         9         1  
 \end{Verbatim}
             
     \subsection{Predict (Decision Tree)}\label{predict-decision-tree}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{train} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{trainData}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
-          \PY{n}{label} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{trainData}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
-          \PY{n}{test} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{testData}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{train} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{trainData}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+         \PY{n}{label} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{trainData}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+         \PY{n}{test} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{testData}\PY{o}{.}\PY{n}{values}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{Tree}  \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}
-          \PY{n}{Tree}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{label}\PY{p}{)}
-          \PY{n}{test\PYZus{}label} \PY{o}{=} \PY{n}{decision\PYZus{}tree}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test}\PY{p}{)}
-          \PY{n}{acc\PYZus{}Tree} \PY{o}{=} \PY{n}{Tree}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{label}\PY{p}{)}
-          \PY{n}{acc\PYZus{}Tree}
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{Tree}  \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{Tree}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{label}\PY{p}{)}
+         \PY{n}{test\PYZus{}label} \PY{o}{=} \PY{n}{Tree}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test}\PY{p}{)}
+         \PY{n}{acc\PYZus{}Tree} \PY{o}{=} \PY{n}{Tree}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{label}\PY{p}{)}
+         \PY{n}{acc\PYZus{}Tree}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}242}]:} 0.9820426487093153
+{\color{outcolor}Out[{\color{outcolor}20}]:} 0.9820426487093153
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}247}]:} \PY{c+c1}{\PYZsh{}Generating predicition file}
-          \PY{n}{submitData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender\PYZus{}submission.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{submitData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}label}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
-          \PY{n}{submitData}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender\PYZus{}submission.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}Generating predicition file}
+         \PY{n}{submitData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender\PYZus{}submission.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{submitData}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}label}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{submitData}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gender\PYZus{}submission.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
 \end{Verbatim}
 
 

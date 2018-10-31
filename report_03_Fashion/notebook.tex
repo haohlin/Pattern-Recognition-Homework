@@ -1,0 +1,811 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Report 3  -  FashonMNIST  and Clothing Classification}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \centerline{Haohan Lin}
+
+ \centerline{Student ID: 2015300010}
+
+    \section{Task Description}\label{task-description}
+
+    \subsection{Task Requirement}\label{task-requirement}
+
+Build and train a CNN classification model with FashionMNIST dataset.
+Build a web crawler and collect clothing (i.e., T-shirt, shoes...)
+images from taobao. Then use the trained model to classify the collect
+images. \newline * Multi-class classification \newline * Web crawler
+
+    \subsection{Data}\label{data}
+
+The dataset consists of a training set of 60,000 examples and a test set
+of 10,000 examples. Each example is a 28x28 grayscale image, associated
+with a label from 10 classes.
+
+    \begin{longtable}[]{@{}lll@{}}
+\toprule
+Label & Description &\tabularnewline
+\midrule
+\endhead
+0 & T-shirt/top &\tabularnewline
+1 & Trouser &\tabularnewline
+2 & Pullover &\tabularnewline
+3 & Dress &\tabularnewline
+4 & Coat &\tabularnewline
+5 & Sandal &\tabularnewline
+6 & Shirt &\tabularnewline
+7 & Sneaker &\tabularnewline
+8 & Bag &\tabularnewline
+9 & Ankle boot &\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{img} \PY{o+ow}{in} \PY{n}{train}\PY{o}{.}\PY{n}{train\PYZus{}data}\PY{p}{:}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{xticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{n}{yticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{binary}\PY{p}{)}
+             \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{100}\PY{p}{:}
+                 \PY{k}{break}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Multi-class Classification
+Model}\label{multi-class-classification-model}
+
+\subsection{Libraries}\label{libraries}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}machine learning}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{torch} \PY{k}{as} \PY{n+nn}{t}
+         \PY{k+kn}{from} \PY{n+nn}{torch} \PY{k}{import} \PY{n}{nn}
+         \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{autograd} \PY{k}{import} \PY{n}{Variable}
+         \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data} \PY{k}{import} \PY{n}{DataLoader}
+         \PY{k+kn}{from} \PY{n+nn}{torchvision}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{FashionMNIST}
+         \PY{k+kn}{import} \PY{n+nn}{torchvision}
+         
+         \PY{c+c1}{\PYZsh{}visualization}
+         \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import} \PY{n}{Image}
+         \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import} \PY{n}{ImageOps}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt} 
+\end{Verbatim}
+
+
+    \subsection{Acquire Data}\label{acquire-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{k}{def} \PY{n+nf}{trans}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Data normalization and preprocessing for FashionMNIST\PYZsq{}\PYZsq{}\PYZsq{}} 
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{255}
+             \PY{n}{x} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{0.5} 
+             \PY{c+c1}{\PYZsh{} Transfer to tensor and add a dimension for applicability of dataloader}
+             \PY{n}{x} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{k}{return} \PY{n}{x}
+         
+         \PY{k}{def} \PY{n+nf}{trans2}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Data normalization and preprocessing for TaobaoIMG\PYZsq{}\PYZsq{}\PYZsq{}} 
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{255}
+             \PY{n}{x} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{0.5}
+             \PY{n}{x} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{Tensor}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{x}
+         
+         \PY{n}{train} \PY{o}{=} \PY{n}{FashionMNIST}\PY{p}{(} \PY{n}{root}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./mnist/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{trans}\PY{p}{,} \PY{n}{download}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{test} \PY{o}{=} \PY{n}{FashionMNIST}\PY{p}{(}\PY{n}{root}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./mnist/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{n}{trans}\PY{p}{,} \PY{n}{download}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Pack the dataset in batches}
+         \PY{n}{train\PYZus{}batch} \PY{o}{=} \PY{n}{DataLoader}\PY{p}{(}\PY{n}{dataset} \PY{o}{=} \PY{n}{train}\PY{p}{,} \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{128}\PY{p}{,} \PY{n}{shuffle} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{test\PYZus{}batch} \PY{o}{=} \PY{n}{DataLoader}\PY{p}{(}\PY{n}{dataset} \PY{o}{=} \PY{n}{test}\PY{p}{,} \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{128}\PY{p}{,} \PY{n}{shuffle} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{CNN Model}\label{cnn-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{class} \PY{n+nc}{CNN}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{CNN}\PY{p}{,}\PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv\PYZus{}1} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{c+c1}{\PYZsh{} input: (28,28)}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{stride} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}\PY{n}{padding} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{c+c1}{\PYZsh{}(16,28,28), }
+                                           \PY{c+c1}{\PYZsh{}padding = (kernel\PYZus{}size \PYZhy{} 1)/2}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{BatchNorm2d}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{,}\PY{c+c1}{\PYZsh{} Batch Normalization}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{c+c1}{\PYZsh{} Activation function}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{MaxPool2d}\PY{p}{(}\PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{c+c1}{\PYZsh{} output: (16,14,14)}
+                    \PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv\PYZus{}2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{c+c1}{\PYZsh{} input:(16,14,14)}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{Conv2d}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{32}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{stride} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}\PY{n}{padding} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{c+c1}{\PYZsh{}(32,14,14)}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{BatchNorm2d}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{)}\PY{p}{,}\PY{c+c1}{\PYZsh{} Batch Normalization}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{c+c1}{\PYZsh{} Activation function}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{MaxPool2d}\PY{p}{(}\PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{c+c1}{\PYZsh{} output: (37,7,7)}
+                    \PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{32}\PY{o}{*}\PY{l+m+mi}{7}\PY{o}{*}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{c+c1}{\PYZsh{} Linearize}
+                
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{data}\PY{p}{)}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv\PYZus{}1}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+                \PY{n}{data} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{conv\PYZus{}2}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+                \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{c+c1}{\PYZsh{} Flatten}
+                \PY{n}{data} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+                \PY{k}{return} \PY{n}{data}
+\end{Verbatim}
+
+
+    \subsection{Training}\label{training}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{cnn} \PY{o}{=} \PY{n}{CNN}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cnn} \PY{o}{=} \PY{n}{cnn}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{c+c1}{\PYZsh{} Train with GPU}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{cnn}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{)}\PY{c+c1}{\PYZsh{} Adam optimizer uses momentum }
+         \PY{c+c1}{\PYZsh{}and adagrad proporty which allow the model to train better}
+         \PY{n}{loss\PYZus{}function} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{CrossEntropyLoss}\PY{p}{(}\PY{p}{)}
+         \PY{n}{epo} \PY{o}{=} \PY{l+m+mi}{30}
+         
+         \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{epo}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{step}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{train\PYZus{}batch}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{b\PYZus{}x} \PY{o}{=} \PY{n}{Variable}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{c+c1}{\PYZsh{} Train input}
+                 \PY{n}{b\PYZus{}y} \PY{o}{=} \PY{n}{Variable}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{c+c1}{\PYZsh{} Train labels}
+          
+                 \PY{n}{output} \PY{o}{=} \PY{n}{cnn}\PY{p}{(}\PY{n}{b\PYZus{}x}\PY{p}{)}\PY{c+c1}{\PYZsh{} Forward}
+                 \PY{n}{loss} \PY{o}{=} \PY{n}{loss\PYZus{}function}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{n}{b\PYZus{}y}\PY{p}{)}
+                 \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{} Reset gradient}
+                 \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{} Calculate gradient}
+                 \PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{} Update weights}
+                 \PY{n}{predict} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{c+c1}{\PYZsh{} Prediction}
+                 
+          
+                 \PY{k}{if} \PY{n}{step} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} Calculate score}
+                     \PY{n}{correct\PYZus{}num} \PY{o}{=} \PY{p}{(}\PY{n}{predict} \PY{o}{==} \PY{n}{b\PYZus{}y}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{score} \PY{o}{=} \PY{l+m+mi}{100}\PY{o}{*}\PY{n+nb}{float}\PY{p}{(}\PY{n}{correct\PYZus{}num}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{b\PYZus{}x}\PY{p}{)}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{epoch}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|Step:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{step}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|train loss:}\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{loss}.data[0], 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|Score:}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{sc}ore\PY{o}{)}
+                     
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+F:\textbackslash{}Anaconda\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\textbackslash{}\_\_main\_\_.py:25: UserWarning: invalid index of a 0-dim tensor. This will be an error in PyTorch 0.5. Use tensor.item() to convert a 0-dim tensor to a Python number
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch: 0 |Step: 0 |train loss:2.4105 |Score:10.94 \%
+Epoch: 0 |Step: 100 |train loss:1.0691 |Score:71.88 \%
+Epoch: 0 |Step: 200 |train loss:0.7600 |Score:81.25 \%
+Epoch: 0 |Step: 300 |train loss:0.5951 |Score:83.59 \%
+Epoch: 0 |Step: 400 |train loss:0.5232 |Score:84.38 \%
+Epoch: 1 |Step: 0 |train loss:0.5639 |Score:75.00 \%
+Epoch: 1 |Step: 100 |train loss:0.5027 |Score:84.38 \%
+Epoch: 1 |Step: 200 |train loss:0.4384 |Score:87.50 \%
+Epoch: 1 |Step: 300 |train loss:0.5089 |Score:82.03 \%
+Epoch: 1 |Step: 400 |train loss:0.3354 |Score:89.06 \%
+Epoch: 2 |Step: 0 |train loss:0.4432 |Score:85.94 \%
+Epoch: 2 |Step: 100 |train loss:0.3796 |Score:83.59 \%
+Epoch: 2 |Step: 200 |train loss:0.4251 |Score:87.50 \%
+Epoch: 2 |Step: 300 |train loss:0.3368 |Score:87.50 \%
+Epoch: 2 |Step: 400 |train loss:0.3753 |Score:87.50 \%
+Epoch: 3 |Step: 0 |train loss:0.4582 |Score:83.59 \%
+Epoch: 3 |Step: 100 |train loss:0.3032 |Score:89.84 \%
+Epoch: 3 |Step: 200 |train loss:0.3250 |Score:88.28 \%
+Epoch: 3 |Step: 300 |train loss:0.2881 |Score:92.19 \%
+Epoch: 3 |Step: 400 |train loss:0.4181 |Score:84.38 \%
+Epoch: 4 |Step: 0 |train loss:0.3444 |Score:85.94 \%
+Epoch: 4 |Step: 100 |train loss:0.4007 |Score:83.59 \%
+Epoch: 4 |Step: 200 |train loss:0.3185 |Score:89.06 \%
+Epoch: 4 |Step: 300 |train loss:0.3102 |Score:91.41 \%
+Epoch: 4 |Step: 400 |train loss:0.3462 |Score:89.84 \%
+Epoch: 5 |Step: 0 |train loss:0.2885 |Score:89.84 \%
+Epoch: 5 |Step: 100 |train loss:0.3011 |Score:90.62 \%
+Epoch: 5 |Step: 200 |train loss:0.3229 |Score:87.50 \%
+Epoch: 5 |Step: 300 |train loss:0.3310 |Score:87.50 \%
+Epoch: 5 |Step: 400 |train loss:0.3863 |Score:82.03 \%
+Epoch: 6 |Step: 0 |train loss:0.3100 |Score:89.84 \%
+Epoch: 6 |Step: 100 |train loss:0.3044 |Score:91.41 \%
+Epoch: 6 |Step: 200 |train loss:0.2300 |Score:92.97 \%
+Epoch: 6 |Step: 300 |train loss:0.2497 |Score:90.62 \%
+Epoch: 6 |Step: 400 |train loss:0.2426 |Score:89.84 \%
+Epoch: 7 |Step: 0 |train loss:0.3845 |Score:85.16 \%
+Epoch: 7 |Step: 100 |train loss:0.2230 |Score:92.19 \%
+Epoch: 7 |Step: 200 |train loss:0.3466 |Score:87.50 \%
+Epoch: 7 |Step: 300 |train loss:0.2707 |Score:86.72 \%
+Epoch: 7 |Step: 400 |train loss:0.2184 |Score:94.53 \%
+Epoch: 8 |Step: 0 |train loss:0.2585 |Score:90.62 \%
+Epoch: 8 |Step: 100 |train loss:0.2648 |Score:90.62 \%
+Epoch: 8 |Step: 200 |train loss:0.3273 |Score:86.72 \%
+Epoch: 8 |Step: 300 |train loss:0.2242 |Score:92.97 \%
+Epoch: 8 |Step: 400 |train loss:0.3555 |Score:85.94 \%
+Epoch: 9 |Step: 0 |train loss:0.3464 |Score:88.28 \%
+Epoch: 9 |Step: 100 |train loss:0.1771 |Score:94.53 \%
+Epoch: 9 |Step: 200 |train loss:0.2460 |Score:92.19 \%
+Epoch: 9 |Step: 300 |train loss:0.1636 |Score:94.53 \%
+Epoch: 9 |Step: 400 |train loss:0.2222 |Score:91.41 \%
+Epoch: 10 |Step: 0 |train loss:0.1869 |Score:93.75 \%
+Epoch: 10 |Step: 100 |train loss:0.1818 |Score:93.75 \%
+Epoch: 10 |Step: 200 |train loss:0.1675 |Score:96.09 \%
+Epoch: 10 |Step: 300 |train loss:0.1828 |Score:93.75 \%
+Epoch: 10 |Step: 400 |train loss:0.1547 |Score:93.75 \%
+Epoch: 11 |Step: 0 |train loss:0.1965 |Score:94.53 \%
+Epoch: 11 |Step: 100 |train loss:0.1431 |Score:96.88 \%
+Epoch: 11 |Step: 200 |train loss:0.2084 |Score:94.53 \%
+Epoch: 11 |Step: 300 |train loss:0.1742 |Score:94.53 \%
+Epoch: 11 |Step: 400 |train loss:0.2846 |Score:87.50 \%
+Epoch: 12 |Step: 0 |train loss:0.1384 |Score:97.66 \%
+Epoch: 12 |Step: 100 |train loss:0.2597 |Score:92.97 \%
+Epoch: 12 |Step: 200 |train loss:0.2582 |Score:91.41 \%
+Epoch: 12 |Step: 300 |train loss:0.2707 |Score:88.28 \%
+Epoch: 12 |Step: 400 |train loss:0.3290 |Score:86.72 \%
+Epoch: 13 |Step: 0 |train loss:0.2236 |Score:94.53 \%
+Epoch: 13 |Step: 100 |train loss:0.2669 |Score:91.41 \%
+Epoch: 13 |Step: 200 |train loss:0.2333 |Score:90.62 \%
+Epoch: 13 |Step: 300 |train loss:0.1664 |Score:93.75 \%
+Epoch: 13 |Step: 400 |train loss:0.2643 |Score:89.06 \%
+Epoch: 14 |Step: 0 |train loss:0.2505 |Score:89.84 \%
+Epoch: 14 |Step: 100 |train loss:0.1818 |Score:92.97 \%
+Epoch: 14 |Step: 200 |train loss:0.1979 |Score:92.19 \%
+Epoch: 14 |Step: 300 |train loss:0.2649 |Score:89.84 \%
+Epoch: 14 |Step: 400 |train loss:0.2022 |Score:90.62 \%
+Epoch: 15 |Step: 0 |train loss:0.2484 |Score:88.28 \%
+Epoch: 15 |Step: 100 |train loss:0.2372 |Score:91.41 \%
+Epoch: 15 |Step: 200 |train loss:0.1371 |Score:96.09 \%
+Epoch: 15 |Step: 300 |train loss:0.2278 |Score:91.41 \%
+Epoch: 15 |Step: 400 |train loss:0.2156 |Score:92.19 \%
+Epoch: 16 |Step: 0 |train loss:0.1882 |Score:93.75 \%
+Epoch: 16 |Step: 100 |train loss:0.1648 |Score:92.97 \%
+Epoch: 16 |Step: 200 |train loss:0.1580 |Score:94.53 \%
+Epoch: 16 |Step: 300 |train loss:0.2456 |Score:92.19 \%
+Epoch: 16 |Step: 400 |train loss:0.2667 |Score:89.84 \%
+Epoch: 17 |Step: 0 |train loss:0.1639 |Score:93.75 \%
+Epoch: 17 |Step: 100 |train loss:0.2050 |Score:93.75 \%
+Epoch: 17 |Step: 200 |train loss:0.2977 |Score:89.06 \%
+Epoch: 17 |Step: 300 |train loss:0.2356 |Score:91.41 \%
+Epoch: 17 |Step: 400 |train loss:0.1407 |Score:94.53 \%
+Epoch: 18 |Step: 0 |train loss:0.1603 |Score:96.88 \%
+Epoch: 18 |Step: 100 |train loss:0.1491 |Score:92.97 \%
+Epoch: 18 |Step: 200 |train loss:0.1532 |Score:94.53 \%
+Epoch: 18 |Step: 300 |train loss:0.1046 |Score:97.66 \%
+Epoch: 18 |Step: 400 |train loss:0.1549 |Score:92.19 \%
+Epoch: 19 |Step: 0 |train loss:0.2108 |Score:93.75 \%
+Epoch: 19 |Step: 100 |train loss:0.2124 |Score:90.62 \%
+Epoch: 19 |Step: 200 |train loss:0.1932 |Score:93.75 \%
+Epoch: 19 |Step: 300 |train loss:0.1328 |Score:96.09 \%
+Epoch: 19 |Step: 400 |train loss:0.2362 |Score:89.84 \%
+Epoch: 20 |Step: 0 |train loss:0.2096 |Score:92.97 \%
+Epoch: 20 |Step: 100 |train loss:0.1579 |Score:95.31 \%
+Epoch: 20 |Step: 200 |train loss:0.2218 |Score:92.97 \%
+Epoch: 20 |Step: 300 |train loss:0.1417 |Score:94.53 \%
+Epoch: 20 |Step: 400 |train loss:0.2836 |Score:87.50 \%
+Epoch: 21 |Step: 0 |train loss:0.1944 |Score:92.97 \%
+Epoch: 21 |Step: 100 |train loss:0.1298 |Score:95.31 \%
+Epoch: 21 |Step: 200 |train loss:0.1345 |Score:93.75 \%
+Epoch: 21 |Step: 300 |train loss:0.1702 |Score:92.97 \%
+Epoch: 21 |Step: 400 |train loss:0.2047 |Score:92.97 \%
+Epoch: 22 |Step: 0 |train loss:0.2321 |Score:92.97 \%
+Epoch: 22 |Step: 100 |train loss:0.1386 |Score:94.53 \%
+Epoch: 22 |Step: 200 |train loss:0.1653 |Score:92.19 \%
+Epoch: 22 |Step: 300 |train loss:0.1968 |Score:93.75 \%
+Epoch: 22 |Step: 400 |train loss:0.1961 |Score:93.75 \%
+Epoch: 23 |Step: 0 |train loss:0.1940 |Score:94.53 \%
+Epoch: 23 |Step: 100 |train loss:0.1451 |Score:95.31 \%
+Epoch: 23 |Step: 200 |train loss:0.1583 |Score:95.31 \%
+Epoch: 23 |Step: 300 |train loss:0.1294 |Score:95.31 \%
+Epoch: 23 |Step: 400 |train loss:0.1925 |Score:92.97 \%
+Epoch: 24 |Step: 0 |train loss:0.2311 |Score:93.75 \%
+Epoch: 24 |Step: 100 |train loss:0.2101 |Score:92.19 \%
+Epoch: 24 |Step: 200 |train loss:0.1742 |Score:93.75 \%
+Epoch: 24 |Step: 300 |train loss:0.1765 |Score:94.53 \%
+Epoch: 24 |Step: 400 |train loss:0.1344 |Score:94.53 \%
+Epoch: 25 |Step: 0 |train loss:0.1978 |Score:93.75 \%
+Epoch: 25 |Step: 100 |train loss:0.1992 |Score:93.75 \%
+Epoch: 25 |Step: 200 |train loss:0.1498 |Score:96.09 \%
+Epoch: 25 |Step: 300 |train loss:0.2062 |Score:92.97 \%
+Epoch: 25 |Step: 400 |train loss:0.1577 |Score:94.53 \%
+Epoch: 26 |Step: 0 |train loss:0.1448 |Score:96.09 \%
+Epoch: 26 |Step: 100 |train loss:0.2283 |Score:90.62 \%
+Epoch: 26 |Step: 200 |train loss:0.2539 |Score:90.62 \%
+Epoch: 26 |Step: 300 |train loss:0.1383 |Score:94.53 \%
+Epoch: 26 |Step: 400 |train loss:0.2048 |Score:92.19 \%
+Epoch: 27 |Step: 0 |train loss:0.1717 |Score:92.97 \%
+Epoch: 27 |Step: 100 |train loss:0.1598 |Score:94.53 \%
+Epoch: 27 |Step: 200 |train loss:0.1515 |Score:96.09 \%
+Epoch: 27 |Step: 300 |train loss:0.1822 |Score:92.97 \%
+Epoch: 27 |Step: 400 |train loss:0.1385 |Score:94.53 \%
+Epoch: 28 |Step: 0 |train loss:0.1568 |Score:92.97 \%
+Epoch: 28 |Step: 100 |train loss:0.1115 |Score:96.09 \%
+Epoch: 28 |Step: 200 |train loss:0.2035 |Score:92.19 \%
+Epoch: 28 |Step: 300 |train loss:0.1725 |Score:93.75 \%
+Epoch: 28 |Step: 400 |train loss:0.1582 |Score:95.31 \%
+Epoch: 29 |Step: 0 |train loss:0.1726 |Score:92.19 \%
+Epoch: 29 |Step: 100 |train loss:0.1657 |Score:96.88 \%
+Epoch: 29 |Step: 200 |train loss:0.1924 |Score:92.19 \%
+Epoch: 29 |Step: 300 |train loss:0.1676 |Score:92.97 \%
+Epoch: 29 |Step: 400 |train loss:0.1098 |Score:96.09 \%
+
+    \end{Verbatim}
+
+    \subsection{Test}\label{test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{cnn}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+         \PY{n}{testloss} \PY{o}{=} \PY{l+m+mf}{0.}
+         \PY{n}{testacc} \PY{o}{=} \PY{l+m+mf}{0.}
+         \PY{k}{for} \PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{label}\PY{p}{)} \PY{o+ow}{in} \PY{n}{test\PYZus{}batch}\PY{p}{:}
+             \PY{n}{img} \PY{o}{=} \PY{n}{Variable}\PY{p}{(}\PY{n}{img}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{label} \PY{o}{=} \PY{n}{Variable}\PY{p}{(}\PY{n}{label}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         
+             \PY{n}{output} \PY{o}{=} \PY{n}{cnn}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+             \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{predict} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{num\PYZus{}correct} \PY{o}{=} \PY{p}{(}\PY{n}{predict} \PY{o}{==} \PY{n}{label}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{testacc} \PY{o}{+}\PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{num\PYZus{}correct}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{testacc} \PY{o}{/}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{test\PYZus{}data}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Test Acc: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{testacc}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+F:\textbackslash{}Anaconda\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\textbackslash{}\_\_main\_\_.py:11: UserWarning: invalid index of a 0-dim tensor. This will be an error in PyTorch 0.5. Use tensor.item() to convert a 0-dim tensor to a Python number
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Acc: 90.94 \%
+
+    \end{Verbatim}
+
+    \section{Web Crawler}\label{web-crawler}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k+kn}{from} \PY{n+nn}{bs4} \PY{k}{import} \PY{n}{BeautifulSoup}
+         \PY{k+kn}{import} \PY{n+nn}{requests}
+         \PY{k+kn}{from} \PY{n+nn}{selenium} \PY{k}{import} \PY{n}{webdriver}
+         \PY{k+kn}{from} \PY{n+nn}{selenium}\PY{n+nn}{.}\PY{n+nn}{webdriver}\PY{n+nn}{.}\PY{n+nn}{support}\PY{n+nn}{.}\PY{n+nn}{ui} \PY{k}{import} \PY{n}{WebDriverWait}
+         \PY{k+kn}{import} \PY{n+nn}{urllib}
+         
+         \PY{n}{browser} \PY{o}{=} \PY{n}{webdriver}\PY{o}{.}\PY{n}{Chrome}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{} Open chrome with seleniun}
+         \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://list.tmall.com/search\PYZus{}product.htm?q=T}\PY{l+s+si}{\PYZpc{}E}\PY{l+s+s1}{6}\PY{l+s+si}{\PYZpc{}81\PYZpc{}}\PY{l+s+s1}{A4\PYZam{}closedKey=inseason}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{browser}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{c+c1}{\PYZsh{} Open the T\PYZhy{}shirt search page on Taobao and get all the source code}
+\end{Verbatim}
+
+
+    \emph{* Now browse the generated webpage until the bottom, because the
+images won't load until they are presented on the screen.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{html} \PY{o}{=} \PY{n}{browser}\PY{o}{.}\PY{n}{page\PYZus{}source}
+        \PY{n}{soup} \PY{o}{=} \PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{html}\PY{p}{)}
+        \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+        
+        \PY{c+c1}{\PYZsh{} Find and download the images to local repertory}
+        \PY{k}{for} \PY{n}{link} \PY{o+ow}{in} \PY{n}{soup}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{productImg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{:}
+            \PY{n}{i}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{link}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZhy{}p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{urllib}\PY{o}{.}\PY{n}{request}\PY{o}{.}\PY{n}{urlretrieve}\PY{p}{(} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https:}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{link}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZhy{}shirt/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{link}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZhy{}p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Classification}\label{classification}
+
+    \subsection{Load Images}\label{load-images}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{img\PYZus{}arr} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{60}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Open the downloaded images and convert them to gray scale}
+             \PY{n}{img\PYZus{}orig} \PY{o}{=} \PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZhy{}shirt/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}10.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{convert}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{img\PYZus{}orig} \PY{o}{=} \PY{n}{ImageOps}\PY{o}{.}\PY{n}{invert}\PY{p}{(}\PY{n}{img\PYZus{}orig}\PY{p}{)}\PY{c+c1}{\PYZsh{} Invert black and white}
+             \PY{n}{img\PYZus{}orig} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{img\PYZus{}orig}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Convert to array}
+             \PY{n}{img\PYZus{}arr}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{img\PYZus{}orig}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{c+c1}{\PYZsh{} Show image}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:} <matplotlib.image.AxesImage at 0x17e6bef6f60>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Reduce Resolution}\label{reduce-resolution}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{img}\PY{o}{=}\PY{n}{Image}\PY{o}{.}\PY{n}{fromarray}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+              \PY{n}{img} \PY{o}{=} \PY{n}{img}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}\PY{p}{)}
+              \PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}100}]:} <matplotlib.image.AxesImage at 0x17e6bf55160>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Image Enhancement}\label{image-enhancement}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                          \PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{255}
+              \PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{21}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{22}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:} <matplotlib.image.AxesImage at 0x17e6bfab908>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Data Normalization and
+Preprocessing}\label{data-normalization-and-preprocessing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{img\PYZus{}arr} \PY{o}{=} \PY{n}{trans2}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Classification and
+Scoring}\label{classification-and-scoring}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{cnn}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+          \PY{n}{cnn} \PY{o}{=} \PY{n}{cnn}\PY{o}{.}\PY{n}{cpu}\PY{p}{(}\PY{p}{)}
+          \PY{n}{output} \PY{o}{=} \PY{n}{cnn}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{)}
+          \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{predict} \PY{o}{=} \PY{n}{t}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{num\PYZus{}correct} \PY{o}{=} \PY{p}{(}\PY{n}{predict} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          \PY{n}{t\PYZus{}acc} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{num\PYZus{}correct}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{img\PYZus{}arr}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Application Acc: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{t\PYZus{}acc}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Application Acc: 83.33 \%
+
+    \end{Verbatim}
+
+    \section{My Experiences}\label{my-experiences}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  PyTorch is an easy-to-use open source machine learning library which
+  makes it possible to build and customize our own deep learning model.
+  This allows me to focus on adjusting model parameters rather than
+  debugging the code. The computing process can be done using GPU, which
+  improves the efficiency profoundly. However, there are still much to
+  learn about this powerful tool.
+\item
+  Do batch normalization, not only with input data, but with the output
+  of each layer as well. This helps improve convergence speed.
+\item
+  Use dataloader to split dataset into batches when the dataset is big.
+\item
+  With a web crawler we can do many useful things, like extracting and
+  analysing commits from a movie forum. I'll dig deep into such
+  application in the future.
+\item
+  Before classification, use image processing skills to reduce images'
+  noise.
+\end{enumerate}
+
+    \section{Reference}\label{reference}
+
+{[}1{]} Hanxiao. Fashion-MNIST.
+https://github.com/zalandoresearch/fashion-mnist \newline
+[2] Wenboyu. Python爬取淘宝搜索页，使用Selenium+BeautifulSoup.
+https://blog.csdn.net/wenboyu/article/details/78176859 \newline
+[3] Bushuhui. Machinelearning\_Notebook.
+https://github.com/bushuhui/machinelearning\_notebook/tr
+\newline ee/master/6\_pytorch \newline
+[4] Thenewboston. Python Programming Tutorial-How to Build a Web
+Crawler. Youtube
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
