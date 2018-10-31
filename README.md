@@ -1,1 +1,2 @@
-林昊晗-2015300010-模式识别与分析
+# Pattern-Recognition-Homework
+My codes and reports for Pattern Recognition course

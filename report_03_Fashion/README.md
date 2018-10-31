@@ -1,31 +1,40 @@
-# Report3 - 服装分类
+Report3 - FashionMNIST  and Clothing Classification
+===================================================
 
-## 内容：
-* 任务类型：多分类
+<https://github.com/zalandoresearch/fashion-mnist/>
+<https://gitter.im/fashion-mnist/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link>
+[README.zh-CN.md](README.zh-CN.md) [README.ja.md](README.ja.md)
+<https://opensource.org/licenses/MIT>
+<https://hanxiao.github.io/2018/09/28/Fashion-MNIST-Year-In-Review/>
 
-* 背景介绍：FashionMNIST 是一个替代 [MNIST 手写数字集](https://link.zhihu.com/?target=http%3A//yann.lecun.com/exdb/mnist/)的图像数据集。 它是由 Zalando（一家德国的时尚科技公司）旗下的研究部门提供。其涵盖了来自 10 种类别的共 7 万个不同商品的正面图片。
+`Fashion-MNIST` is a dataset of [Zalando](https://jobs.zalando.com/tech/)'s
+article images—consisting of a training set of 60,000 examples and a test set of
+10,000 examples. Each example is a 28x28 grayscale image, associated with a
+label from 10 classes. We intend `Fashion-MNIST` to serve as a direct **drop-in
+replacement** for the original [MNIST
+dataset](http://yann.lecun.com/exdb/mnist/) for benchmarking machine learning
+algorithms. It shares the same image size and structure of training and testing
+splits.
 
-  FashionMNIST 的大小、格式和训练集/测试集划分与原始的 MNIST 完全一致。60000/10000 的训练测试数据划分，28x28 的灰度图片。你可以直接用它来测试你的机器学习和深度学习算法性能，**且不需要改动任何的代码**。
+Here's an example how the data looks (*each class takes three-rows*):
 
-  这个数据集的样子大致如下（每个类别占三行）：
+![](doc/img/fashion-mnist-sprite.png)
 
-  ![fashion-mnist.jpg](images/fashion-mnist.jpg)
+Why we made Fashion-MNIST
+-------------------------
 
+The original [MNIST dataset](http://yann.lecun.com/exdb/mnist/) contains a lot
+of handwritten digits. Members of the AI/ML/Data Science community love this
+dataset and use it as a benchmark to validate their algorithms. In fact, MNIST
+is often the first dataset researchers try. *"If it doesn't work on MNIST, it
+won't work at all"*, they said. *"Well, if it does work on MNIST, it may still
+fail on others."*
 
+ 
 
+Task
+====
 
-## 要求：
-
-1. 构建深度神经网络，完成多分类
-2. 编写爬虫程序，到taobao等网站抓取一些衣服、鞋子的图片，并利用训练好的模型进行分类
-3. 对于未属于训练数据集中的商品类别，考虑使用何种方法能够判断出类别为`不支持的类别`
-4. 评估自己抓取图像的分类精度
-5. 分析结果的效果，综合考虑各种方法，改进方法，并提交结果
-6. 按照`report_template.ipynb`撰写自己的报告
-
-
-
-## References
-
-* [这个数据的链接](https://github.com/zalandoresearch/fashion-mnist)
-
+Build and train a CNN classification model with FashionMNIST dataset. Build a
+web crawler and collect clothing (i.e. T-shirt, shoes...) images from taobao.
+Then use the trained model to classify the collect images

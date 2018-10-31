@@ -1,2 +1,2 @@
-KNN和K-MEANS算法
-================
+KNN and K-MEANS algorithms
+==========================
