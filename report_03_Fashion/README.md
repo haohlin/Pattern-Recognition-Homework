@@ -1,11 +1,10 @@
-Report3 - FashionMNIST  and Clothing Classification
-===================================================
+Report3 - FashionMNIST and Clothing Classification
+==================================================
 
-<https://github.com/zalandoresearch/fashion-mnist/>
-<https://gitter.im/fashion-mnist/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link>
-[README.zh-CN.md](README.zh-CN.md) [README.ja.md](README.ja.md)
-<https://opensource.org/licenses/MIT>
-<https://hanxiao.github.io/2018/09/28/Fashion-MNIST-Year-In-Review/>
+ 
+
+Fashion-MNIST
+-------------
 
 `Fashion-MNIST` is a dataset of [Zalando](https://jobs.zalando.com/tech/)'s
 article images—consisting of a training set of 60,000 examples and a test set of
@@ -33,8 +32,8 @@ fail on others."*
  
 
 Task
-====
+----
 
-Build and train a CNN classification model with FashionMNIST dataset. Build a
+Build and train a CNN classification model with Fashion-MNIST dataset. Build a
 web crawler and collect clothing (i.e. T-shirt, shoes...) images from taobao.
 Then use the trained model to classify the collect images
